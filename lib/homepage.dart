@@ -41,10 +41,13 @@ class HomePageState extends State<StatefulWidget>
         title:Icon(Icons.photo),
       ),
 
-      body: Container(
-        height: 200,
-        width: 200,
-        color: Colors.red,
+      body: Hero(
+        tag: 'heroanimation',
+        child: Container(
+          height: 200,
+          width: 200,
+          color: Colors.red,
+        ),
       ),
 
       drawer: Drawer(),
