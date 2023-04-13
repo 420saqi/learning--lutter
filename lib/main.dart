@@ -1,4 +1,6 @@
 // import 'package:codpurplaylist/homepage.dart';
+import 'dart:async';
+
 import 'package:codpurplaylist/homepage.dart';
 import 'package:codpurplaylist/myRoutes.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +33,9 @@ class LoginPageState extends State<StatefulWidget>
 TextEditingController username= TextEditingController();
 TextEditingController password= TextEditingController();
 var msg= "";
+var getvalue= " ";
+bool check = false;
+
   Widget build(BuildContext context)
   {
     return Scaffold(
@@ -52,12 +57,25 @@ var msg= "";
             height: 20,
           ),
 
+        Text('Welocme $getvalue',style:TextStyle(fontWeight: FontWeight.bold,
+        fontSize: 20,color: Colors.black)),
+
+          SizedBox(
+            height: 20,
+          ),
+
           Padding(
             padding: const EdgeInsets.all(18.0),
             child: Column(
               children: [
                 TextField(
                   controller: username,
+                  onChanged: (value){
+                      getvalue =value;
+                      setState(() {
+
+                      });
+                  },
                   decoration: InputDecoration(
                     label: Text('Enter usegrname'),
                   ),
@@ -72,31 +90,73 @@ var msg= "";
             ),
           ),
           SizedBox(height: 20,),
-          ElevatedButton(
 
-            style: ElevatedButton.styleFrom(
-                padding: EdgeInsets.only(left: 20,right: 20,top: 20,bottom: 20),
-                shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(8),
-                side: BorderSide(
-                   width: 1,
+InkWell(
+  onTap: ()async{
 
-                ),
+     setState(() {
+check=true;
+// Timer(Duration(milliseconds: 1500), () {
+//   Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
+//
+// });
+      });
+     await Future.delayed(Duration(milliseconds: 1500));
+     Navigator.push(context, MaterialPageRoute(builder: (context)=>HomePage()));
 
-              )
-            ),
-              onPressed: (){
-              if(username.text.toString()!= '' && password.text.toString()!= ''){Navigator.push(context,
-                  MaterialPageRoute(builder: (context)=>HomePage()));}
-              else{
-                msg=' Pleaser enter required fields';
-              }
-              setState(() {
+  },
+  child:   AnimatedContainer(duration: Duration(seconds: 1),
 
-              });
-              }, child: Text('Login'),
+  height: check ? 50 : 60,
+  
+    width: check ? 50 : 100,
+  
+    child: Center(child: check ?  Icon(Icons.done): Text('Login',style:TextStyle(fontWeight: FontWeight.bold,
+  
+        fontSize: 20,color: Colors.white))),
+  
+    decoration: BoxDecoration(
+  
+      color: Colors.blue,
+  
+      borderRadius: BorderRadius.circular(check ? 50: 20),
 
-          ),
+  
+      
+  
+    ),
+  
+  ),
+),
+
+          // ElevatedButton(
+          //
+          //   style: ElevatedButton.styleFrom(
+          //       padding: EdgeInsets.only(left: 20,right: 20,top: 20,bottom: 20),
+          //       shape: RoundedRectangleBorder(
+          //       borderRadius: BorderRadius.circular(8),
+          //       side: BorderSide(
+          //          width: 1,
+          //
+          //       ),
+          //
+          //     )
+          //   ),
+          //     onPressed: (){
+          //     if(username.text.toString()!= '' && password.text.toString()!= ''){Navigator.push(context,
+          //         MaterialPageRoute(builder: (context)=>HomePage()));}
+          //     else{
+          //       msg=' Pleaser enter required fields';
+          //     }
+          //     setState(() {
+          //
+          //     });
+          //     }, child: Text('Login'),
+          //
+          // ),
+
+
+
           SizedBox(height: 20,),
 
             Text(msg, style: TextStyle(color: Colors.red, fontSize: 20
